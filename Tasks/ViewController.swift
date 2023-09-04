@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
+    
     @IBAction func didTapAdd() {
         let vc = storyboard?.instantiateViewController(identifier: "entry") as! EntryViewController
         vc.title = "New Task"
@@ -63,6 +64,14 @@ class ViewController: UIViewController {
 extension ViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        let vc = storyboard?.instantiateViewController(identifier: "task") as! TaskViewController
+        vc.title = "New Task"
+        vc.task = tasks[indexPath.row]
+        vc.currentPosition = indexPath.row // Pass the currentPosition here
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
 }
 
@@ -79,4 +88,3 @@ extension ViewController: UITableViewDataSource{
         return cell
     }
 }
-
